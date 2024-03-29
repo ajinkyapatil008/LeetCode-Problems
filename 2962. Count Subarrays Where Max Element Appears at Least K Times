@@ -1,0 +1,40 @@
+#2962. Count Subarrays Where Max Element Appears at Least K Times
+
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int k)
+    {
+        int n=nums.size();
+        vector<int>temp(n,0);
+        for(int i=0;i<n;i++)
+        {
+            temp[i]=nums[i];
+        }
+        sort(temp.begin(),temp.end());
+        int max= temp[n-1];
+
+        int i=0,j=0;
+        long long result=0;
+        int count=0;
+        
+        while(j<n)
+        {
+            if(nums[j]==max)
+            {
+                count++;
+            }
+            while(count>=k)
+            {
+                result += n-j;
+                if(nums[i]==max)
+                {
+                    count--;
+                }
+                i++;
+            }
+            j++;
+        }
+
+        return result;
+    }
+};
